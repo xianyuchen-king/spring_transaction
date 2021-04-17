@@ -26,9 +26,11 @@ public class AccountService1Impl implements AccountService{
 
     @Override
     public void transfer(final String out, final String in, final Double money) {
+        //配置事务策略
         DefaultTransactionDefinition def = new DefaultTransactionDefinition();
         def.setName("transaction-point");
         def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+        //设置状态点
         TransactionStatus transactionStatus = transactionManager.getTransaction(def);
         try{
             accountDao.inMoney(in,money);
